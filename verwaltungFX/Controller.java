@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import verwaltung.CalcVerwaltung;
 
 public class Controller implements Initializable {
 	
@@ -31,6 +32,17 @@ public class Controller implements Initializable {
 		labelTitelInhalt.setText("test");
 		labelJahrInhalt.setText("test");
 		labelStoryInhalt.setText("test");
+		
+		
+		try {
+			CalcVerwaltung.connect();
+			
+			
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		System.out.println("alles geladen");
 	}
