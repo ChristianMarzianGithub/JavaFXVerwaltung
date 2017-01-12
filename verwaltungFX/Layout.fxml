@@ -34,7 +34,7 @@
       </MenuBar>
       <HBox prefHeight="389.0" prefWidth="600.0">
          <children>
-            <ListView prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="filmListe" onMouseClicked="#beispielRoutineDieVerknuepftWerdenKann" prefHeight="388.0" prefWidth="188.0" />
             <VBox prefHeight="375.0" prefWidth="405.0">
                <children>
                   <HBox prefHeight="136.0" prefWidth="412.0">
@@ -61,7 +61,7 @@
                            <children>
                               <Label fx:id="labelTitelInhalt" styleClass="labels" text="Label" textFill="WHITE" />
                               <Label fx:id="labelJahrInhalt" styleClass="labels" text="Label" textFill="WHITE" />
-                              <Label fx:id="labelStoryInhalt" styleClass="labels" text="Label" textFill="WHITE" />
+                              <Label fx:id="labelStoryInhalt" alignment="TOP_LEFT" prefHeight="116.0" prefWidth="276.0" styleClass="labels" text="Label" textFill="WHITE" />
                            </children>
                         </VBox>
                      </children>
