@@ -50,39 +50,38 @@ public class CalcVerwaltungFX {
 	   
 	}
 	
-	public static String[] getEintragData(int id){
+	public static Vector getEintragData(int id, Vector rueckVector){
 		
-		String rueck = "";
 		
-		String[] rueckArray = new String[5];		
+		
+		
+		
 		try {
 			Connection conn =connect();
 			Statement statement = conn.createStatement();
 			rs = statement.executeQuery("Select * from film where FilmID =" + Integer.toString(id+1));
-			rueckArray[0] = rs.getString("Titel");
-			rueckArray[1] = rs.getString("StoryLine");
-			rueckArray[2] =  rs.getString("ReleaseDate"); 
-			rueckArray[3] =  rs.getString("RunTimeMin");
+			rueckVector.add(rs.getString("Titel"));
+			rueckVector.add( rs.getString("StoryLine"));
+			rueckVector.add(rs.getString("ReleaseDate")); 
+			rueckVector.add( rs.getString("RunTimeMin"));
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return rueckArray;
+		return rueckVector;
 	}
 	
-public static String[] getLabels(int SprachenID){
+public static Vector getLabels(int SprachenID, Vector VectorListe){
 		
-		String rueck = "";
 		int i = 0;
 		
-		String[] rueckArray = new String[10];		
 		try {
 			Connection conn =connect();
 			Statement statement = conn.createStatement();
 			rs = statement.executeQuery("Select * from Uebersetzung where SprachenID =" + Integer.toString(SprachenID));
 			
 			while(rs.next()){
-				rueckArray[i] = rs.getString("Bezeichnung");
+				VectorListe.add(rs.getString("Bezeichnung"));
 				i++;
 			}
 			
@@ -91,7 +90,7 @@ public static String[] getLabels(int SprachenID){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return rueckArray;
+		return VectorListe;
 	}
 	
 	
