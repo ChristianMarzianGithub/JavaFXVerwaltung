@@ -64,32 +64,29 @@ public class Controller implements Initializable {
 	public void beispielRoutineDieVerknuepftWerdenKann(){		
 		int index = filmListe.getSelectionModel().getSelectedIndex();
 		
-		String[] eintraegeArray = new String[5];	 
+		Vector filmDetails = new Vector();
 		System.out.println(index);
-		eintraegeArray = CalcVerwaltungFX.getEintragData(index);
+		filmDetails = CalcVerwaltungFX.getEintragData(index,filmDetails);
 		
-		labelTitelInhalt.setText(eintraegeArray[0]);	
-		labelJahrInhalt.setText(eintraegeArray[2]);
-		labelStoryInhalt.setText(eintraegeArray[1]);
+		labelTitelInhalt.setText((String) filmDetails.get(0));	
+		labelJahrInhalt.setText((String) filmDetails.get(2));
+		labelStoryInhalt.setText((String) filmDetails.get(1));
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void setLabels(int SprachenID){
 		String [] labels= new String[10];
-		labels = CalcVerwaltungFX.getLabels(SprachenID);
-		labelTitel.setText(labels[4]);
-		labelJahr.setText(labels[5]);
-		labelStory.setText(labels[6]);		
-		labelTitelInhalt.setText("test");
-		labelJahrInhalt.setText("test");
-		labelStoryInhalt.setText("test");
+		Vector VectorListe = new Vector();
+		
+		
+		VectorListe = CalcVerwaltungFX.getLabels(SprachenID,VectorListe);
+		labelTitel.setText((String) VectorListe.get(4));
+		labelJahr.setText((String) VectorListe.get(5));
+		labelStory.setText((String) VectorListe.get(6));		
 		labelStoryInhalt.setWrapText(true);
-		
-		
-		
-		
-		
-		
 	}
+	
+	
 	
 	
 	
