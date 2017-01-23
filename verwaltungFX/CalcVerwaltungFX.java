@@ -10,25 +10,22 @@ import java.util.Vector;
 public class CalcVerwaltungFX {
 	static ResultSet rs;
 	
-	public static Vector getData() throws ClassNotFoundException, SQLException{
-		Connection conn =connect();
+	public static Vector getData(String dbName) throws ClassNotFoundException, SQLException{
+		Connection conn =connect(dbName);
 		
 		Vector rueck = new Vector();
 		while(rs.next()){
 			rueck.add(rs.getString("Titel"));
 		}
-		
-		
 		conn.close();
-		
-		
 		return rueck;		
 	}
 	
 	
 	
 	
-	public static Connection connect() throws ClassNotFoundException{
+
+	public static Connection connect(String dbName) throws ClassNotFoundException{
 		// load the sqlite-JDBC driver using the current class loader
 	    
 		Class.forName("org.sqlite.JDBC");
@@ -36,28 +33,31 @@ public class CalcVerwaltungFX {
 	        
 	      // create a database connection
 	      try {
-			connection = DriverManager.getConnection("jdbc:sqlite:MovieDB.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
 			Statement statement = connection.createStatement();
 		      statement.setQueryTimeout(30);  // set timeout to 30 sec.
 		      rs = statement.executeQuery("select * from film");
 		      
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			connection = null;
 			e.printStackTrace();
 		}
+	      
+	      
+	      
+	      
+	      
 	      
 	  return connection; 
 	   
 	}
 	
-	public static Vector getEintragData(int id, Vector rueckVector){
-		
-		
-		
+	@SuppressWarnings("unchecked")
+	public static Vector getEintragData(int id, Vector rueckVector, String dbName){
 		
 		
 		try {
-			Connection conn =connect();
+			Connection conn =connect(dbName);
 			Statement statement = conn.createStatement();
 			rs = statement.executeQuery("Select * from film where FilmID =" + Integer.toString(id+1));
 			rueckVector.add(rs.getString("Titel"));
@@ -71,20 +71,17 @@ public class CalcVerwaltungFX {
 		return rueckVector;
 	}
 	
-public static Vector getLabels(int SprachenID, Vector VectorListe){
-		
-		int i = 0;
-		
+@SuppressWarnings("unchecked")
+public static Vector getLabels(int SprachenID, Vector VectorListe){		
+		int i = 0;		
 		try {
-			Connection conn =connect();
+			Connection conn =connect("MovieDb.db");
 			Statement statement = conn.createStatement();
-			rs = statement.executeQuery("Select * from Uebersetzung where SprachenID =" + Integer.toString(SprachenID));
-			
+			rs = statement.executeQuery("Select * from Uebersetzung where SprachenID =" + Integer.toString(SprachenID));			
 			while(rs.next()){
 				VectorListe.add(rs.getString("Bezeichnung"));
 				i++;
 			}
-			
 			
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -93,39 +90,5 @@ public static Vector getLabels(int SprachenID, Vector VectorListe){
 		return VectorListe;
 	}
 	
-	
-	
-	
-	
-	
-	
-	public static Vector getLanguageVector() throws ClassNotFoundException, SQLException{
-		Connection conn =connect();
-		try {
-			conn = DriverManager.getConnection("jdbc:sqlite:MovieDB.db");
-			Statement statement = conn.createStatement();
-		      statement.setQueryTimeout(30);  // set timeout to 30 sec.
-		      rs = statement.executeQuery("select * from film");
-		      
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	      
-		
-		
-		
-		Vector rueck = new Vector();
-		while(rs.next()){
-			try {
-				rueck.add(rs.getString("Titel"));
-				conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return rueck;	
-	}
 
 }

@@ -41,16 +41,11 @@ public class Controller implements Initializable {
 		setLabels(1);
 		
 		try {
-			CalcVerwaltung.connect();
+			CalcVerwaltungFX.connect("MovieDB.db");
 			
 			
 			
-			
-			
-			
-			
-			
-			x = CalcVerwaltungFX.getData();
+			x = CalcVerwaltungFX.getData("MovieDB.db");
 			filmListe.getItems().addAll(x);
 			
 		} catch (ClassNotFoundException | SQLException e) {
@@ -66,7 +61,7 @@ public class Controller implements Initializable {
 		
 		Vector filmDetails = new Vector();
 		System.out.println(index);
-		filmDetails = CalcVerwaltungFX.getEintragData(index,filmDetails);
+		filmDetails = CalcVerwaltungFX.getEintragData(index,filmDetails,"MovieDB.db");
 		
 		labelTitelInhalt.setText((String) filmDetails.get(0));	
 		labelJahrInhalt.setText((String) filmDetails.get(2));
